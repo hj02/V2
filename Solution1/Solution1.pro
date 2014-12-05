@@ -8,6 +8,8 @@ QT       += core
 
 QT       -= gui
 
+QT       += core sql
+
 TARGET = Solution1
 CONFIG   += console
 CONFIG   -= app_bundle

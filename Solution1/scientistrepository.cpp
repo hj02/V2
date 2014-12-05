@@ -86,3 +86,10 @@ Scientist* ScientistRepository::search(std::string searchTerm) {
     }
     return NULL;
 }
+
+void ScientistRepository::connectdb(){
+    QSqlDatabase db;
+    db = QSqlDatabase::addDatabase("QSQLITE");
+    QString dbName = "V2.sqlite";
+    db.setDatabaseName(dbName);
+}
