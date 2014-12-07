@@ -44,11 +44,11 @@ void SqlScientist::addScientist(Scientist s){
 
     QSqlQuery query;
     query.prepare("INSERT INTO Scientist (Name, Gender, Dob, Dod)"
-                  "VALUES(:name, :gender, :dateOfBirth, : dateOfDeath)");
-    query.bindValue(":name", QString::fromStdString(s.name));
-    query.bindValue(":gender", QString::fromStdString(s.gender));
-    query.bindValue(":dateOfBirth",QString::fromStdString(s.dateOfBirth));
-    query.bindValue(":dateOfDeath",QString::fromStdString(s.dateOfDeath));
+                  "VALUES(:Name, :Gender, :Dob, :Dod)");
+    query.bindValue(":Name", QString::fromStdString(s.name));
+    query.bindValue(":Gender", QString::fromStdString(s.gender));
+    query.bindValue(":Dob",QString::fromStdString(s.dateOfBirth));
+    query.bindValue(":Dod",QString::fromStdString(s.dateOfDeath));
 
     query.exec();
 
