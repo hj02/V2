@@ -3,14 +3,13 @@
 
 // Long strings and ASCII art here below \/ \/
 
+
 std::string MAIN_MENU = "Please use the following commands to interface with this AWESOME DATABASE\n\n\
-        add s   : Add a scientist to the database\n\
-        add c   : Add a record to the database\n\
+        adds    : Add a scientist to the database\n\
+        addc    : Add a record to the database\n\
         order   : Order and dislay the records in the database\n\
         search  : Searches for a scientist\n\
         exit    : Exit the program";
-
-
 
 
 /*
