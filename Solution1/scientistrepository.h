@@ -27,7 +27,8 @@ public:
     // Returns a list ordered by column and modifier
     std::list<Scientist> list(std::string col,std::string mod);
     //Connect to database
-    void connectdb();
+    //void connectdb();
+    std::list<Scientist> Connect();
 
 private:
     // This list is maintained in memory and persisted with ScientistRepository::save()

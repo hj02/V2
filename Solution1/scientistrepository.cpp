@@ -87,9 +87,17 @@ Scientist* ScientistRepository::search(std::string searchTerm) {
     return NULL;
 }
 
-void ScientistRepository::connectdb(){
-    QSqlDatabase db;
+std::list<Scientist> Connect(){
+
+    std::list<Scientist> scientists = std::list<Scientist>();
+
+    QSqlDatabase db = QSqlDatabase();
     db = QSqlDatabase::addDatabase("QSQLITE");
-    QString dbName = "V2.sqlite";
-    db.setDatabaseName(dbName);
+    db.setDatabaseName("V2.sqlite");
+    db.open();
+
+    //QSqlQuery query;
+    //query.exec("SELECT * FROM Scientist");
+
+    return scientists;
 }
