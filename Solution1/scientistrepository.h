@@ -11,6 +11,8 @@
 #include "comparer.h"
 #include <algorithm>
 #include <QtSql/QSqlDatabase>
+#include <QtSql>
+
 
 // Handles all the things that pertain to persistence
 // uses a file that is located in the build root directory
@@ -26,9 +28,6 @@ public:
     std::list<Scientist> list();
     // Returns a list ordered by column and modifier
     std::list<Scientist> list(std::string col,std::string mod);
-    //Connect to database
-    //void connectdb();
-    std::list<Scientist> Connect();
 
 private:
     // This list is maintained in memory and persisted with ScientistRepository::save()

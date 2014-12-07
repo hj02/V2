@@ -1,4 +1,5 @@
 #include "scientistrepository.h"
+#include <QtSql>
 
 
 ScientistRepository::ScientistRepository(std::string fname) {
@@ -87,17 +88,4 @@ Scientist* ScientistRepository::search(std::string searchTerm) {
     return NULL;
 }
 
-std::list<Scientist> Connect(){
 
-    std::list<Scientist> scientists = std::list<Scientist>();
-
-    QSqlDatabase db = QSqlDatabase();
-    db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("V2.sqlite");
-    db.open();
-
-    //QSqlQuery query;
-    //query.exec("SELECT * FROM Scientist");
-
-    return scientists;
-}
