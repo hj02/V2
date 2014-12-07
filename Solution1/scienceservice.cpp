@@ -8,7 +8,7 @@ ScienceService::~ScienceService() {
 }
 
 void ScienceService::addScientist(Scientist scientist) {
-    scientistRepository.add(scientist);
+    sqlscientist.addScientist(scientist);
 }
 
 std::list<Scientist> ScienceService::getAllScientists() {

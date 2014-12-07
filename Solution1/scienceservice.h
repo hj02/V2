@@ -3,6 +3,7 @@
 
 #include "Scientist.h"
 #include "ScientistRepository.h"
+#include "sqlscientist.h"
 #include <list>
 
 
@@ -18,6 +19,7 @@ public:
     std::list<Scientist> getScientistsOrderedBy(std::string,std::string);
 private:
     ScientistRepository scientistRepository;
+    SqlScientist sqlscientist;
 };
 
 #endif // SCIENCESERVICE_H
