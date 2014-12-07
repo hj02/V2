@@ -2,8 +2,8 @@
 #define SCIENCESERVICE_H
 
 #include "Scientist.h"
-#include "ScientistRepository.h"
 #include "sqlscientist.h"
+#include "sqlcomputer.h"
 #include <list>
 
 
@@ -18,8 +18,8 @@ public:
     std::list<Scientist> getAllScientists();
     std::list<Scientist> getScientistsOrderedBy(std::string,std::string);
 private:
-    ScientistRepository scientistRepository;
     SqlScientist sqlscientist;
+    SqlComputer sqlcomputer;
 };
 
 #endif // SCIENCESERVICE_H

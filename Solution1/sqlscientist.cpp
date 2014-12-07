@@ -55,3 +55,23 @@ void SqlScientist::addScientist(Scientist s){
 
 
 }
+
+Scientist* SqlScientist::search(std::string searchTerm){
+
+Scientist* t;
+return t;
+}
+
+std::list<Scientist> SqlScientist::getScientistOrederedBy(std::string col, std::string mod){
+
+std::list<Scientist> scientist = std::list<Scientist>();
+
+return scientist;
+}
+
+std::list<Scientist> SqlScientist::list(std::string col, std::string mod){
+
+std::list<Scientist> scientist = std::list<Scientist>();
+
+return scientist;
+}
