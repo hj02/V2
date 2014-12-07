@@ -25,7 +25,8 @@ SOURCES += main.cpp \
     scientistrepository.cpp \
     utilities.cpp \
     sqlcomputer.cpp \
-    sqlscientist.cpp
+    sqlscientist.cpp \
+    computer.cpp
 
 HEADERS += \
     comparer.h \
@@ -36,4 +37,5 @@ HEADERS += \
     scientistrepository.h \
     utilities.h \
     sqlcomputer.h \
-    sqlscientist.h
+    sqlscientist.h \
+    computer.h

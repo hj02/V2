@@ -1,10 +1,9 @@
-#include "sqlsicentist.h"
-#include "scientistrepository.h"
+#include "sqlscientist.h"
 #include <QtSql>
 using namespace std;
 
 
-SqlSicentist::SqlSicentist()
+SqlScientist::SqlScientist()
 {
     QSqlDatabase db = QSqlDatabase();
     db = QSqlDatabase::addDatabase("QSQLITE");

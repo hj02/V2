@@ -1,14 +1,14 @@
-#ifndef SQLSICENTIST_H
-#define SQLSICENTIST_H
+#ifndef SQLSCIENTIST_H
+#define SQLSCIENTIST_H
 #include <scientistrepository.h>
 #include <QtSql>
 
 
-class SqlSicentist
+class SqlScientist
 {
 public:
-    SqlSicentist();
+    SqlScientist();
 
 };
 
-#endif // SQLSICENTIST_H
+#endif // SQLSCIENTIST_H
