@@ -45,24 +45,41 @@ int ConsoleUI::respondToMessage() {
 
     try {
         // Handle all available commands and throw error on unknown ones
-        if(userRequest.find("add") != std::string::npos) {
+        if(userRequest.find("adds") != std::string::npos) {
             clear();
             Scientist additionalScientist = Scientist();
             std::cout << "Enter the name of the scientist: ";
             std::cin.ignore();
             std::getline(std::cin, additionalScientist.name);
-            clear();
+            //clear();
             std::cout << "Enter the date of birth of the scientist: ";
             std::cin >> additionalScientist.dateOfBirth;
-            clear();
+            //clear();
             std::cout << "Enter the date of death of the scientist: ";
             std::cin >> additionalScientist.dateOfDeath;
-            clear();
+            //clear();
             std::cout << "Enter the gender of the scientist: ";
             std::cin >> additionalScientist.gender;
             scienceService.addScientist(additionalScientist);
             clear();
-        } else if(userRequest.find("search") != std::string::npos) {
+        } else if(userRequest.find("addc") != std::string::npos) {
+            clear();
+            Computer additionalComputer = Computer();
+            std::cout << "Enter the brand of the computer: ";
+            std::cin.ignore();
+            std::getline(std::cin, additionalComputer.brand);
+            //clear();
+            std::cout << "Enter the date of year of the computer: ";
+            std::cin >> additionalComputer.year;
+            //clear();
+            std::cout << "Enter the date of type of the computer: ";
+            std::cin >> additionalComputer.type;
+            //clear();
+            std::cout << "Was the computer built (Y/N): ";
+            std::cin >> additionalComputer.built;
+            scienceService.addComputer(additionalComputer);
+            clear();
+        }else if(userRequest.find("search") != std::string::npos) {
             clear();
             std::string searchTerm = "";
             std::cout << "Enter the search term: ";

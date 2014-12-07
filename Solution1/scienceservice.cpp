@@ -23,3 +23,7 @@ std::list<Scientist> ScienceService::getScientistsOrderedBy(std::string col, std
 Scientist* ScienceService::search(std::string searchTerm) {
     return sqlscientist.search(searchTerm);
 }
+
+void ScienceService::addComputer(Computer computer) {
+    sqlcomputer.addComputer(computer);
+}
