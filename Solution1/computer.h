@@ -1,13 +1,7 @@
 #ifndef COMPUTER_H
 #define COMPUTER_H
 #include <string>
-
 #include <ctime>
-#include <string>
-
-
-#include <ctime>
-#include <string>
 
 
 class Computer
