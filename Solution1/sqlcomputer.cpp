@@ -12,8 +12,6 @@ std::list<Computer> SqlComputer::list(){
 
     std::list<Computer> computer = std::list<Computer>();
 
-    openDatabase();
-
     QSqlQuery query;
     query.exec("SELECT * FROM Computer");
 
@@ -34,8 +32,6 @@ std::list<Computer> SqlComputer::list(){
 
 void SqlComputer::addComputer(Computer c){
 
-    openDatabase();
-
     QSqlQuery query;
     query.prepare("INSERT INTO Computer (Brand, Year, Type, Built)"
                   "VALUES(:Brand, :Year, :Type, :Built)");
@@ -48,10 +44,29 @@ void SqlComputer::addComputer(Computer c){
 }
 
 
-Computer* SqlComputer::searchComputer(std::string searchTerm){
+std::list<Computer> SqlComputer::searchComputer(std::string searchTerm){
+    std::list<Computer> computer = std::list<Computer>();
 
-Computer* t;
-return t;
+    QSqlQuery query;
+    searchTerm = "%" + searchTerm + "%";
+    query.prepare("select * from Computer where Brand like :estr or Year like :estr or Type like :estr or Built like :estr");
+    query.bindValue(":estr", QString::fromStdString(searchTerm));
+
+    query.exec();
+
+    Computer t = Computer();
+
+        while(query.next()){
+        t.brand = query.value("Brand").toString().toStdString();
+        t.year = query.value("Year").toString().toStdString();
+        t.type =query.value("Type").toString().toStdString();
+        t.built = query.value("Built").toString().toStdString();
+        computer.push_back(t);
+
+        }
+
+    return computer;
+
 }
 
 
@@ -59,9 +74,6 @@ std::list<Computer> SqlComputer::list(std::string col, std::string mod){
 
 
     std::list<Computer> computer = std::list<Computer>();
-
-    openDatabase();
-
 
     QSqlQuery query;
 
@@ -88,14 +100,4 @@ std::list<Computer> SqlComputer::list(std::string col, std::string mod){
 
     }
     return computer;
-}
-
-void SqlComputer::openDatabase(){
-
-
-    QSqlDatabase db = QSqlDatabase();
-    db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("V2.sqlite");
-    db.open();
-
 }

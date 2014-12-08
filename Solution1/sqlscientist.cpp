@@ -1,5 +1,6 @@
 #include "sqlscientist.h"
 #include <QtSql>
+#include <cctype>
 using namespace std;
 
 
@@ -11,8 +12,6 @@ SqlScientist::SqlScientist()
 std::list<Scientist> SqlScientist::list(){
 
     std::list<Scientist> scientist = std::list<Scientist>();
-
-    openDatabase();
 
     QSqlQuery query;
     query.exec("SELECT * FROM Scientist");
@@ -34,7 +33,6 @@ std::list<Scientist> SqlScientist::list(){
 
 void SqlScientist::addScientist(Scientist s){
 
-    openDatabase();
 
     QSqlQuery query;
     query.prepare("INSERT INTO Scientist (Name, Gender, Dob, Dod)"
@@ -52,7 +50,6 @@ void SqlScientist::addScientist(Scientist s){
 
 std::list<Scientist> SqlScientist::searchScientist(std::string searchTerm){
     std::list<Scientist> scientist = std::list<Scientist>();
-    openDatabase();
 
     QSqlQuery query;
     searchTerm = "%" + searchTerm + "%";
@@ -79,8 +76,6 @@ std::list<Scientist> SqlScientist::searchScientist(std::string searchTerm){
 std::list<Scientist> SqlScientist::list(std::string col, std::string mod){
 
     std::list<Scientist> scientist = std::list<Scientist>();
-
-    openDatabase();
 
     QSqlQuery query;
 
@@ -118,3 +113,4 @@ void SqlScientist::openDatabase(){
     db.open();
 
 }
+

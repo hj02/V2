@@ -14,6 +14,7 @@ public:
     std::list<Scientist> searchScientist(std::string searchTerm);
     void openDatabase();
 
+
 };
 
 #endif // SQLSCIENTIST_H

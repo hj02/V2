@@ -18,6 +18,9 @@ private:
     void clear();
     void waitForPrompt();
     int respondToMessage();
+    void toLower(std::string& str);
+    bool dateTrue(std::string date);
+    bool yearTrue(std::string year);
 };
 
 #endif // CONSOLEUI_H

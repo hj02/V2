@@ -11,8 +11,7 @@ public:
     std::list<Computer> list();
     std::list<Computer> list(std::string col, std::string mod);
     void addComputer(Computer c);
-    Computer* searchComputer(std::string searchTerm);
-    void openDatabase();
+    std::list<Computer> searchComputer(std::string searchTerm);
 
 };
 
