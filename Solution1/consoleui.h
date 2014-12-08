@@ -2,6 +2,7 @@
 #define CONSOLEUI_H
 
 #include "Scientist.h"
+#include "computer.h"
 #include <stack>
 #include <list>
 #include "scienceservice.h"

@@ -1,6 +1,7 @@
 #ifndef SCIENCESERVICE_H
 #define SCIENCESERVICE_H
 
+#include "computer.h"
 #include "Scientist.h"
 #include "sqlscientist.h"
 #include "sqlcomputer.h"
@@ -15,9 +16,12 @@ public:
     void addScientist(Scientist scientist);
     void addComputer(Computer computer);
     // Returns the first scientist that matches the searchTerm
-    Scientist* search(std::string searchTerm);
+    std::list<Scientist> searchScientist(std::string searchTerm);
     std::list<Scientist> getAllScientists();
-    std::list<Scientist> getScientistsOrderedBy(std::string,std::string);
+    std::list<Scientist> getScientistsOrderedBy(std::string col,std::string mod);
+    std::list<Computer> getAllComputers();
+    std::list<Computer> getComputersOrderedBy(std::string col , std::string mod);
+    Computer* searchComputer(std::string searchTerm);
 private:
     SqlScientist sqlscientist;
     SqlComputer sqlcomputer;

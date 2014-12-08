@@ -12,10 +12,7 @@ std::list<Computer> SqlComputer::list(){
 
     std::list<Computer> computer = std::list<Computer>();
 
-    QSqlDatabase db = QSqlDatabase();
-    db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("V2.sqlite");
-    db.open();
+    openDatabase();
 
     QSqlQuery query;
     query.exec("SELECT * FROM Computer");
@@ -37,10 +34,7 @@ std::list<Computer> SqlComputer::list(){
 
 void SqlComputer::addComputer(Computer c){
 
-    QSqlDatabase db = QSqlDatabase();
-    db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("V2.sqlite");
-    db.open();
+    openDatabase();
 
     QSqlQuery query;
     query.prepare("INSERT INTO Computer (Brand, Year, Type, Built)"
@@ -54,7 +48,7 @@ void SqlComputer::addComputer(Computer c){
 }
 
 
-Computer* SqlComputer::search(std::string searchTerm){
+Computer* SqlComputer::searchComputer(std::string searchTerm){
 
 Computer* t;
 return t;
@@ -66,10 +60,7 @@ std::list<Computer> SqlComputer::list(std::string col, std::string mod){
 
     std::list<Computer> computer = std::list<Computer>();
 
-    QSqlDatabase db = QSqlDatabase();
-    db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("V2.sqlite");
-    db.open();
+    openDatabase();
 
 
     QSqlQuery query;
@@ -82,7 +73,7 @@ std::list<Computer> SqlComputer::list(std::string col, std::string mod){
        throw std::runtime_error(mod + " is not a legal filter modifier.");
     }
 
-   QString qstr ="SELECT * FROM Scientist ORDER BY " + QString::fromStdString(col) + " " + QString::fromStdString(mod);
+   QString qstr ="SELECT * FROM Computer ORDER BY " + QString::fromStdString(col) + " " + QString::fromStdString(mod);
    query.exec(qstr);
 
 
@@ -97,4 +88,14 @@ std::list<Computer> SqlComputer::list(std::string col, std::string mod){
 
     }
     return computer;
+}
+
+void SqlComputer::openDatabase(){
+
+
+    QSqlDatabase db = QSqlDatabase();
+    db = QSqlDatabase::addDatabase("QSQLITE");
+    db.setDatabaseName("V2.sqlite");
+    db.open();
+
 }

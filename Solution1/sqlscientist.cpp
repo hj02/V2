@@ -12,10 +12,7 @@ std::list<Scientist> SqlScientist::list(){
 
     std::list<Scientist> scientist = std::list<Scientist>();
 
-    QSqlDatabase db = QSqlDatabase();
-    db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("V2.sqlite");
-    db.open();
+    openDatabase();
 
     QSqlQuery query;
     query.exec("SELECT * FROM Scientist");
@@ -37,10 +34,7 @@ std::list<Scientist> SqlScientist::list(){
 
 void SqlScientist::addScientist(Scientist s){
 
-    QSqlDatabase db = QSqlDatabase();
-    db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("V2.sqlite");
-    db.open();
+    openDatabase();
 
     QSqlQuery query;
     query.prepare("INSERT INTO Scientist (Name, Gender, Dob, Dod)"
@@ -56,20 +50,37 @@ void SqlScientist::addScientist(Scientist s){
 
 }
 
-Scientist* SqlScientist::search(std::string searchTerm){
+std::list<Scientist> SqlScientist::searchScientist(std::string searchTerm){
+    std::list<Scientist> scientist = std::list<Scientist>();
+    openDatabase();
 
-Scientist* t;
-return t;
+    QSqlQuery query;
+    searchTerm = "%" + searchTerm + "%";
+    query.prepare("select * from Scientist where Name like :estr or Gender like :estr or Dob like :estr or Dod like :estr");
+    query.bindValue(":estr", QString::fromStdString(searchTerm));
+
+    query.exec();
+
+    Scientist t = Scientist();
+
+        while(query.next()){
+        t.name = query.value("Name").toString().toStdString();
+        t.gender = query.value("Gender").toString().toStdString();
+        t.dateOfBirth =query.value("Dob").toString().toStdString();
+        t.dateOfDeath = query.value("Dod").toString().toStdString();
+        scientist.push_back(t);
+
+        }
+
+    return scientist;
+
 }
 
 std::list<Scientist> SqlScientist::list(std::string col, std::string mod){
 
     std::list<Scientist> scientist = std::list<Scientist>();
 
-    QSqlDatabase db = QSqlDatabase();
-    db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("V2.sqlite");
-    db.open();
+    openDatabase();
 
     QSqlQuery query;
 
@@ -96,4 +107,14 @@ std::list<Scientist> SqlScientist::list(std::string col, std::string mod){
     }
 
 return scientist;
+}
+
+void SqlScientist::openDatabase(){
+
+
+    QSqlDatabase db = QSqlDatabase();
+    db = QSqlDatabase::addDatabase("QSQLITE");
+    db.setDatabaseName("V2.sqlite");
+    db.open();
+
 }

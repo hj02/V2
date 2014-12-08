@@ -32,7 +32,7 @@ ScientistRepository::ScientistRepository(std::string fname) {
     }
 }
 
-ScientistRepository::~ScientistRepository() {
+/*ScientistRepository::~ScientistRepository() {
 }
 
 void ScientistRepository::add(Scientist scientist) {
@@ -89,3 +89,4 @@ Scientist* ScientistRepository::search(std::string searchTerm) {
 }
 
 
+*/

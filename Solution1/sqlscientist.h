@@ -11,7 +11,8 @@ public:
     std::list<Scientist> list();
     std::list<Scientist> list(std::string col, std::string mod);
     void addScientist(Scientist s);
-    Scientist* search(std::string searchTerm);
+    std::list<Scientist> searchScientist(std::string searchTerm);
+    void openDatabase();
 
 };
 

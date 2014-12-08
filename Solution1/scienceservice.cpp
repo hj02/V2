@@ -20,10 +20,28 @@ std::list<Scientist> ScienceService::getScientistsOrderedBy(std::string col, std
     return sqlscientist.list(col,mod);
 }
 
-Scientist* ScienceService::search(std::string searchTerm) {
-    return sqlscientist.search(searchTerm);
+std::list<Scientist> ScienceService::searchScientist(std::string searchTerm) {
+    return sqlscientist.searchScientist(searchTerm);
 }
 
 void ScienceService::addComputer(Computer computer) {
     sqlcomputer.addComputer(computer);
 }
+
+
+std::list<Computer> ScienceService::getAllComputers(){
+
+    return sqlcomputer.list();
+
+}
+std::list<Computer> ScienceService::getComputersOrderedBy(std::string col, std::string mod){
+
+    return sqlcomputer.list(col, mod);
+
+}
+Computer* ScienceService::searchComputer(std::string searchTerm){
+
+    sqlcomputer.searchComputer(searchTerm);
+
+}
+
