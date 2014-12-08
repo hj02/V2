@@ -60,16 +60,41 @@ Computer* t;
 return t;
 }
 
-std::list<Computer> SqlComputer::getComputerOrederedBy(std::string col, std::string mod){
-
-std::list<Computer> computer = std::list<Computer>();
-
-return computer;
-}
 
 std::list<Computer> SqlComputer::list(std::string col, std::string mod){
 
-std::list<Computer> computer = std::list<Computer>();
 
-return computer;
+    std::list<Computer> computer = std::list<Computer>();
+
+    QSqlDatabase db = QSqlDatabase();
+    db = QSqlDatabase::addDatabase("QSQLITE");
+    db.setDatabaseName("V2.sqlite");
+    db.open();
+
+
+    QSqlQuery query;
+
+   if(col!="brand" && col!="year" && col!="type" && col!="built"){
+       throw std::runtime_error(col + " is not a legal filter.");
+    }
+    if(mod!="desc" && mod!="asc") {
+
+       throw std::runtime_error(mod + " is not a legal filter modifier.");
+    }
+
+   QString qstr ="SELECT * FROM Scientist ORDER BY " + QString::fromStdString(col) + " " + QString::fromStdString(mod);
+   query.exec(qstr);
+
+
+    while(query.next()){
+        Computer c = Computer();
+        c.brand = query.value("Brand").toString().toStdString();
+        c.year = query.value("Year").toString().toStdString();
+        c.type =query.value("Type").toString().toStdString();
+        c.built = query.value("Built").toString().toStdString();
+
+        computer.push_back(c);
+
+    }
+    return computer;
 }

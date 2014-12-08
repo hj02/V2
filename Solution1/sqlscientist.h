@@ -2,7 +2,7 @@
 #define SQLSCIENTIST_H
 #include <scientist.h>
 #include <QtSql>
-
+#include <stdexcept>
 
 class SqlScientist
 {
@@ -12,7 +12,6 @@ public:
     std::list<Scientist> list(std::string col, std::string mod);
     void addScientist(Scientist s);
     Scientist* search(std::string searchTerm);
-    std::list<Scientist> getScientistOrederedBy(std::string col, std::string mod);
 
 };
 

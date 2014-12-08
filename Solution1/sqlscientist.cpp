@@ -62,16 +62,38 @@ Scientist* t;
 return t;
 }
 
-std::list<Scientist> SqlScientist::getScientistOrederedBy(std::string col, std::string mod){
-
-std::list<Scientist> scientist = std::list<Scientist>();
-
-return scientist;
-}
-
 std::list<Scientist> SqlScientist::list(std::string col, std::string mod){
 
-std::list<Scientist> scientist = std::list<Scientist>();
+    std::list<Scientist> scientist = std::list<Scientist>();
+
+    QSqlDatabase db = QSqlDatabase();
+    db = QSqlDatabase::addDatabase("QSQLITE");
+    db.setDatabaseName("V2.sqlite");
+    db.open();
+
+    QSqlQuery query;
+
+   if(col!="name" && col!="gender" && col!="dob" && col!="dod"){
+       throw std::runtime_error(col + " is not a legal filter.");
+    }
+    if(mod!="desc" && mod!="asc") {
+
+       throw std::runtime_error(mod + " is not a legal filter modifier.");
+    }
+
+   QString qstr ="SELECT * FROM Scientist ORDER BY " + QString::fromStdString(col) + " " + QString::fromStdString(mod);
+   query.exec(qstr);
+
+
+    while(query.next()){
+        Scientist s = Scientist();
+        s.name = query.value("Name").toString().toStdString();
+        s.gender = query.value("Gender").toString().toStdString();
+        s.dateOfBirth =query.value("Dob").toString().toStdString();
+        s.dateOfDeath = query.value("Dod").toString().toStdString();
+
+        scientist.push_back(s);
+    }
 
 return scientist;
 }
