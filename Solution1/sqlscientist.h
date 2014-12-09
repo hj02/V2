@@ -3,7 +3,6 @@
 #include <scientist.h>
 #include <QtSql>
 #include <stdexcept>
-#include <ctime>
 
 class SqlScientist
 {
@@ -14,10 +13,7 @@ public:
     void addScientist(Scientist s);
     std::list<Scientist> searchScientist(std::string searchTerm, std::string ShowComp);
     void openDatabase();
-
-
 };
-
 #endif // SQLSCIENTIST_H
 
 

@@ -1,11 +1,10 @@
 #ifndef CONSOLEUI_H
 #define CONSOLEUI_H
-
+#include "scienceservice.h"
 #include "Scientist.h"
 #include "computer.h"
-#include <stack>
-#include <list>
-#include "scienceservice.h"
+#include <iostream>
+#include <iomanip>
 
 // Display layer for the console application
 class ConsoleUI {
@@ -33,5 +32,4 @@ private:
     void CONNECT();
     void firstToUpper(std::string& finding);
 };
-
 #endif // CONSOLEUI_H

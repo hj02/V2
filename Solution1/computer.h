@@ -1,8 +1,6 @@
 #ifndef COMPUTER_H
 #define COMPUTER_H
 #include <string>
-#include <ctime>
-
 
 class Computer
 {
@@ -15,6 +13,5 @@ public:
     std::string built;
     std::string name;
 };
-
 #endif // COMPUTER_H
 

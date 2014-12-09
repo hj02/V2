@@ -1,7 +1,6 @@
 #ifndef SCIENTIST_H
 #define SCIENTIST_H
 
-#include <ctime>
 #include <string>
 
 // DTO for scientists
@@ -16,5 +15,4 @@ public:
     std::string gender;
     std::string brand;
 };
-
 #endif // SCIENTIST_H
