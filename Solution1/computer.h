@@ -8,7 +8,6 @@ class Computer
 {
 public:
     Computer();
-
     bool operator==(const Computer& right);
     std::string brand;
     std::string year;
