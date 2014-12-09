@@ -50,3 +50,8 @@ std::list<Computer>  ScienceService::searchComputer(std::string searchTerm){
 
 }
 
+void ScienceService::connect(std::string sID, std::string cID){
+
+    return sqlcomputer.connect(sID,cID);
+}
+

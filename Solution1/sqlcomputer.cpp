@@ -101,3 +101,20 @@ std::list<Computer> SqlComputer::list(std::string col, std::string mod){
     }
     return computer;
 }
+
+void SqlComputer::connect(std::string sID, std::string cID){
+
+
+
+    QSqlQuery query;
+    query.prepare("INSERT INTO Makers (c_ID, s_ID)"
+                  "VALUES(:c_ID, :s_ID)");
+    query.bindValue(":c_ID", QString::fromStdString(sID));
+    query.bindValue(":s_ID", QString::fromStdString(cID));
+
+
+    query.exec();
+
+
+
+}

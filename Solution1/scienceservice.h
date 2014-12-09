@@ -22,7 +22,7 @@ public:
     std::list<Computer>  getAllComputers();
     std::list<Scientist> getScientistsOrderedBy(std::string col,std::string mod);
     std::list<Computer> getComputersOrderedBy(std::string col , std::string mod);
-
+    void connect(std::string sID, std::string cID);
     void OPEN();
 private:
     SqlScientist sqlscientist;
