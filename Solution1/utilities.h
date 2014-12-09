@@ -1,8 +1,6 @@
 #ifndef UTILITIES_H
 #define UTILITIES_H
-
 #include <sstream>
-#include <string>
 #include <vector>
 
 namespace util {
@@ -10,5 +8,4 @@ namespace util {
     std::vector<std::string> &split(const std::string &s, char delim, std::vector<std::string> &elems);
     std::vector<std::string> split(const std::string &s, char delim);
 }
-
 #endif // UTILITIES_H

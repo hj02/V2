@@ -1,12 +1,7 @@
 #ifndef SCIENCESERVICE_H
 #define SCIENCESERVICE_H
-
-#include "computer.h"
-#include "Scientist.h"
 #include "sqlscientist.h"
 #include "sqlcomputer.h"
-#include <list>
-
 
 // Domain layer, services the presentation layer
 class ScienceService {
@@ -27,7 +22,5 @@ public:
 private:
     SqlScientist sqlscientist;
     SqlComputer sqlcomputer;
-
 };
-
 #endif // SCIENCESERVICE_H

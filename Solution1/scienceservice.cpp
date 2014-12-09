@@ -25,7 +25,6 @@ std::list<Scientist> ScienceService::searchScientist(std::string searchTerm, std
 }
 
 void ScienceService::OPEN(){
-
     sqlscientist.openDatabase();
 }
 
@@ -33,25 +32,19 @@ void ScienceService::addComputer(Computer computer) {
     sqlcomputer.addComputer(computer);
 }
 
-
 std::list<Computer> ScienceService::getAllComputers(){
-
     return sqlcomputer.list();
-
 }
+
 std::list<Computer> ScienceService::getComputersOrderedBy(std::string col, std::string mod){
-
     return sqlcomputer.list(col, mod);
-
 }
+
 std::list<Computer>  ScienceService::searchComputer(std::string searchTerm, std::string ShowComp){
-
    return sqlcomputer.searchComputer(searchTerm, ShowComp);
-
 }
 
 void ScienceService::connect(std::string sID, std::string cID){
-
     return sqlcomputer.connect(sID,cID);
 }
 

@@ -15,5 +15,4 @@ public:
     void connect(std::string scientist, std::string computer);
 
 };
-
 #endif // SQLCOMPUTER_H
