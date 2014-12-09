@@ -16,10 +16,13 @@ private:
     ScienceService scienceService;
     void clear();
     void waitForPrompt();
+    // waits until the user presses enter
     int respondToMessage();
     void toLower(std::string& str);
     bool dateTrue(std::string date);
+    // Check if the date is on the right format
     bool yearTrue(std::string year);
+    // Check if the year is on the right format
     int SCIENTIST();
     void ADD_SCIENTIST();
     void SEARCH_SCIENTIST();

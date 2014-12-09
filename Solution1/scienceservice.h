@@ -23,7 +23,9 @@ public:
     std::list<Computer> getComputersOrderedBy(std::string col , std::string mod);
     // Orders the list
     void connect(std::string sID, std::string cID);
+    // Connentes a computer and a scientist
     void OPEN();
+    // Opens database
 private:
     SqlScientist sqlscientist;
     SqlComputer sqlcomputer;
