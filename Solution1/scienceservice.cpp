@@ -44,9 +44,9 @@ std::list<Computer> ScienceService::getComputersOrderedBy(std::string col, std::
     return sqlcomputer.list(col, mod);
 
 }
-std::list<Computer>  ScienceService::searchComputer(std::string searchTerm){
+std::list<Computer>  ScienceService::searchComputer(std::string searchTerm, std::string ShowComp){
 
-   return sqlcomputer.searchComputer(searchTerm);
+   return sqlcomputer.searchComputer(searchTerm, ShowComp);
 
 }
 

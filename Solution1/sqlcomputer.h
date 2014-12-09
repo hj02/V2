@@ -11,7 +11,7 @@ public:
     std::list<Computer> list();
     std::list<Computer> list(std::string col, std::string mod);
     void addComputer(Computer c);
-    std::list<Computer> searchComputer(std::string searchTerm);
+    std::list<Computer> searchComputer(std::string searchTerm, std::string ShowComp);
     void connect(std::string scientist, std::string computer);
 
 };

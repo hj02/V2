@@ -109,17 +109,21 @@ bool ConsoleUI::dateTrue(std::string date){
 
 bool ConsoleUI::yearTrue(std::string year){
 
-    int T=0;
-    int s = year.size();
-    for(int i=0; i<s; i++){
-         if(isdigit(year[i]))
-                T=1;
-         else {T=0;
-         break;}
-        }
+    int SIZE = year.size();
 
-    if(T==1) return true;
+    if(SIZE == 4)
+    {
+        int T=0;
+        int s = year.size();
+        for(int i=0; i<s; i++){
+             if(isdigit(year[i]))
+                    T=1;
+             else {T=0;
+             break;}
+            }
 
+        if(T==1) return true;
+    }
     return false;
 }
 
@@ -162,12 +166,15 @@ int ConsoleUI::SCIENTIST(){
 void ConsoleUI::ADD_SCIENTIST(){
 
     clear();
-    std::string DOB, DOD, GENDER;
+    std::string NAME,DOB, DOD, GENDER;
     int err=1;
     Scientist additionalScientist = Scientist();
     std::cout << "Enter the name of the scientist: ";
     std::cin.ignore();
-    std::getline(std::cin, additionalScientist.name);
+    std::getline(std::cin,NAME);
+    toLower(NAME);
+    firstToUpper(NAME);
+    additionalScientist.name = NAME;
     //clear();
     std::cout << "Enter the date of birth of the scientist.\n";
     do{
@@ -305,16 +312,20 @@ int ConsoleUI::COMPUTER(){
 void ConsoleUI::ADD_COMPUTER(){
 
     clear();
-    std::string YEAR, BUILT;
+    std::string BRAND, YEAR, TYPE, BUILT;
     Computer additionalComputer = Computer();
     std::cout << "Enter the name of the computer: ";
     std::cin.ignore();
-    std::getline(std::cin, additionalComputer.brand);
+    std::getline(std::cin, BRAND);
+    toLower(BRAND);
+    firstToUpper(BRAND);
+    additionalComputer.brand = BRAND;
     //clear();
     std::cout << "Enter the year of the computer: ";
     std::cin >> YEAR;
     while(!yearTrue(YEAR)){
-    std::cout << "ERROR! You must enter digits!\n";
+    std::cout << std::endl << "ERROR! You must enter digits with the format 'yyyy'!\n";
+    std::cout << "Example: 0019 or 1999"<< std::endl<< std::endl;
     std::cout << "Enter the year of the computer: ";
     std::cin >> YEAR;
     }
@@ -322,7 +333,10 @@ void ConsoleUI::ADD_COMPUTER(){
     //clear();
     std::cout << "Enter the type of the computer: ";
     std::cin.ignore();
-    std::getline(std::cin, additionalComputer.type);
+    std::getline(std::cin, TYPE);
+    toLower(TYPE);
+    firstToUpper(TYPE);
+    additionalComputer.type = TYPE;
     //clear();
     std::cout << "Was the computer built? ";
     std::cin >> BUILT;
@@ -341,18 +355,35 @@ void ConsoleUI::SEARCH_COMPUTER(){
 
     clear();
     std::string searchTerm = "";
+    std::string ShowComp = "";
     std::cout << "Enter the search term: ";
     std::cin.ignore();
     std::getline(std::cin,searchTerm);
     clear();
-    std::list<Computer> co = scienceService.searchComputer(searchTerm);
+    std::cout << "Do you want to see if the computer is connected to a scientist?(y/n) ";
+    std::cin >> ShowComp;
+    std::list<Computer> co = scienceService.searchComputer(searchTerm, ShowComp);
     if(co.size() > 0) {
         std::cout << "Computer found!!" << std::endl;
-        std::cout << std::left << std::setw(30) << "Brand:" << std::left << std::setw(8)  <<"Year:" << std::left << std::setw(30) << "Type:" << std::left << std::setw(8)<<  "Built?" << std::endl << std::endl;
-        for(std::list<Computer>::iterator iter = co.begin(); iter != co.end(); iter ++) {
-        std::cout << std::left << std::setw(30) << iter->brand << std::left << std::setw(8) << iter->year << std::left << std::setw(30)<< iter->type << std::left << std::setw(8)<< iter->built << std::endl;
+
+        if(ShowComp == "N" || ShowComp == "n")
+        {
+            std::cout << std::left << std::setw(30) << "Brand:" << std::left << std::setw(8)  <<"Year:" << std::left << std::setw(30) << "Type:" << std::left << std::setw(8)<<  "Built?" << std::endl << std::endl;
+            for(std::list<Computer>::iterator iter = co.begin(); iter != co.end(); iter ++)
+            {
+            std::cout << std::left << std::setw(30) << iter->brand << std::left << std::setw(8) << iter->year << std::left << std::setw(30)<< iter->type << std::left << std::setw(8)<< iter->built << std::endl;
+            }
         }
-    }
+        else
+        {
+            std::cout << std::left << std::setw(15) << "Brand:" << std::left << std::setw(6)  <<"Year:" << std::left << std::setw(30) << "Type:" << std::left << std::setw(8)<<  "Built?" << std::left << std::setw(20) << "Name:" << std::endl << std::endl;
+            for(std::list<Computer>::iterator iter = co.begin(); iter != co.end(); iter ++)
+            {
+                std::cout << std::left << std::setw(15) << iter->brand << std::left << std::setw(6) << iter->year << std::left << std::setw(30)<< iter->type << std::left << std::setw(8)<< iter->built << std::left << std::setw(20) << iter->name << std::endl;
+            }
+        }
+   }
+
     else {
          std::cout << "No results found for the term: " << searchTerm << std::endl;
     }
@@ -465,5 +496,27 @@ void ConsoleUI::CONNECT(){
     waitForPrompt();
     clear();
 
+
+}
+
+void ConsoleUI::firstToUpper(std::string& finding){
+    int teljari = -1;
+    int lengd = finding.length();
+
+    finding[0] = toupper(finding[0]);
+
+    for(int i = 0; i < lengd; i++)
+    {
+        if(isspace(finding[i]))
+        {
+          teljari = teljari -1;
+        }
+        if(teljari < -1)
+        {
+            finding[i+1] = toupper(finding[i+1]);
+            teljari = -1;
+        }
+
+    }
 
 }

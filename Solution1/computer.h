@@ -13,6 +13,7 @@ public:
     std::string year;
     std::string type;
     std::string built;
+    std::string name;
 };
 
 #endif // COMPUTER_H

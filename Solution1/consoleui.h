@@ -31,6 +31,7 @@ private:
     void SEARCH_COMPUTER();
     void ORDER_COMPUTER();
     void CONNECT();
+    void firstToUpper(std::string& finding);
 };
 
 #endif // CONSOLEUI_H
