@@ -20,8 +20,8 @@ std::list<Scientist> ScienceService::getScientistsOrderedBy(std::string col, std
     return sqlscientist.list(col,mod);
 }
 
-std::list<Scientist> ScienceService::searchScientist(std::string searchTerm) {
-    return sqlscientist.searchScientist(searchTerm);
+std::list<Scientist> ScienceService::searchScientist(std::string searchTerm, std::string ShowComp) {
+    return sqlscientist.searchScientist(searchTerm, ShowComp);
 }
 
 void ScienceService::OPEN(){

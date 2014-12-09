@@ -201,27 +201,40 @@ void ConsoleUI::ADD_SCIENTIST(){
 }
 
 void ConsoleUI::SEARCH_SCIENTIST(){
-
-
     clear();
-    std::string searchTerm = "";
-    std::cout << "Enter the search term: ";
-    std::cin.ignore();
-    std::getline(std::cin,searchTerm);
-    clear();
-    std::list<Scientist> s = scienceService.searchScientist(searchTerm);
-    if(s.size() > 0) {
-        std::cout << "Scientist found!!" << std::endl;
-        std::cout << std::left << std::setw(30) << "Name" << std::left << std::setw(15)  <<"DateOfBirth:" << std::left << std::setw(15) << "DateOfDeath:" << std::left << std::setw(15)<<  "Gender:"<< std::endl << std::endl;
-        for(std::list<Scientist>::iterator iter = s.begin(); iter != s.end(); iter ++) {
-        std::cout << std::left << std::setw(30) <<  iter->name << std::left << std::setw(15) << iter->dateOfBirth << std::left << std::setw(15)<< iter->dateOfDeath << std::left << std::setw(15) <<  iter->gender  << std::endl;
-        }
-    }
-    else {
-         std::cout << "No results found for the term: " << searchTerm << std::endl;
-    }
-    waitForPrompt();
-    clear();
+                std::string ShowComp = "";
+                std::string searchTerm = "";
+                std::cout << "Enter the search term: ";
+                std::cin.ignore();
+                std::getline(std::cin,searchTerm);
+                clear();
+                std::cout << "Do you want to see if the scientist is connected a computer?(y/n) ";
+                std::cin >> ShowComp;
+                std::list<Scientist> s = scienceService.searchScientist(searchTerm, ShowComp);
+                if(s.size() > 0) {
+                    std::cout << "Scientist found!!" << std::endl;
+                    if(ShowComp == "N" || ShowComp == "n")
+                    {
+                        std::cout << std::left << std::setw(30) << "Name" << std::left << std::setw(15)  <<"DateOfBirth:" << std::left << std::setw(15) << "DateOfDeath:" << std::left << std::setw(15)<<  "Gender:"<< std::endl << std::endl;
+                        for(std::list<Scientist>::iterator iter = s.begin(); iter != s.end(); iter ++)
+                        {
+                            std::cout << std::left << std::setw(30) <<  iter->name << std::left << std::setw(15) << iter->dateOfBirth << std::left << std::setw(15)<< iter->dateOfDeath << std::left << std::setw(15) <<  iter->gender  << std::endl;
+                        }
+                    }
+                    else
+                    {
+                        std::cout << std::left << std::setw(27) << "Name" << std::left << std::setw(14)  <<"DateOfBirth:" << std::left << std::setw(14) << "DateOfDeath:" << std::left << std::setw(12)<<  "Gender:"<< std::left << std::setw(9) << "Brand:" << std::endl << std::endl;
+                        for(std::list<Scientist>::iterator iter = s.begin(); iter != s.end(); iter ++)
+                        {
+                            std::cout << std::left << std::setw(27) <<  iter->name << std::left << std::setw(14) << iter->dateOfBirth << std::left << std::setw(14)<< iter->dateOfDeath << std::left << std::setw(9) <<  iter->gender << std::left << std::setw(12) << iter->brand << std::endl;
+                        }
+                    }
+                }
+                else {
+                     std::cout << "No results found for the term: " << searchTerm << std::endl;
+                }
+                waitForPrompt();
+                clear();
 }
 
 void ConsoleUI::ORDER_SCIENTIST(){
@@ -367,6 +380,8 @@ void ConsoleUI::ORDER_COMPUTER(){
 
 void ConsoleUI::CONNECT(){
 
+    QSqlQuery query;
+
     std::string sconnect;
     std::string cconnect;
     std::string searchterm;
@@ -406,8 +421,42 @@ void ConsoleUI::CONNECT(){
 
     std::cout << "Enter the ID of Scientist: " << std::endl;
     std::cin >> sconnect;
+    query.prepare("SELECT :id in (SELECT ID FROM Scientist) AS RES");
+    query.bindValue(":id", QString::fromStdString(sconnect));
+    query.exec();
+    query.next();
+    std::string res = query.value("RES").toString().toStdString();
+    int value = atoi(res.c_str());
+    while(!value){
+        std::cout << "This is scientist does not exist." << std::endl;
+        std::cout << "Enter the ID of Scientist: " << std::endl;
+        std::cin >> sconnect;
+        query.prepare("SELECT :id in (SELECT ID FROM Scientist)AS RES");
+        query.bindValue(":id", QString::fromStdString(sconnect));
+        query.exec();
+        query.next();
+        res = query.value("RES").toString().toStdString();
+        value = atoi(res.c_str());
+    }
     std::cout << "Enter the ID of Computer: " << std::endl;
     std::cin >> cconnect;
+    query.prepare("SELECT :id2 in (SELECT ID FROM Computer) AS RES2");
+    query.bindValue(":id2", QString::fromStdString(cconnect));
+    query.exec();
+    query.next();
+    std::string res2 = query.value("RES2").toString().toStdString();
+    int value2 = atoi(res2.c_str());
+    while(!value2){
+        std::cout << "This is computer does not exist."<< std::endl;
+        std::cout << "Enter the ID of Computer: " << std::endl;
+        std::cin >> cconnect;
+        query.prepare("SELECT :id2 in (SELECT ID FROM Computer) AS RES2");
+        query.bindValue(":id2", QString::fromStdString(cconnect));
+        query.exec();
+        query.next();
+        res2 = query.value("RES2").toString().toStdString();
+        value2 = atoi(res2.c_str());
+    }
 
     scienceService.connect(sconnect, cconnect);
 
