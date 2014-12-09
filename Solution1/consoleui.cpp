@@ -370,9 +370,39 @@ void ConsoleUI::CONNECT(){
     std::string sconnect;
     std::string cconnect;
     std::string searchterm;
+    std::string option;
+    std::string option2;
 
-    std::cout << "Please enter a serch therm for scientist: ";
+    std::cout << "Do you want to search first for a scientist or a computer (y/n) ";
+    std::cin >> option;
+    toLower(option);
 
+    while(option != "y" && option != "n"){
+        std::cout << "ERROR Not a valid command" << std::endl;
+        std::cout << "Please try again" << std::endl;
+        std::cin >> option;
+        toLower(option);
+    }
+
+    if(option == "y"){
+            clear();
+            std::cout << "Dou you want to search for a scientist or a computer (scientist/computer) " << std::endl;
+            std::cin >> option2;
+            toLower(option2);
+            while(option2 != "scientist" && option2 != "computer"){
+                std::cout << "ERROR Not a valid command" << std::endl;
+                std::cout << "Please try again" << std::endl;
+                std::cin >> option2;
+                toLower(option2);
+            }
+            if(option2 == "scientist"){
+                std::cout << "Please enter a serch therm for scientist: ";
+                SEARCH_SCIENTIST();
+            }else if(option2 == "computer"){
+                std::cout << "Please enter a serch therm for computer: ";
+                SEARCH_COMPUTER();
+            }
+     }
 
     std::cout << "Enter the ID of Scientist: " << std::endl;
     std::cin >> sconnect;
@@ -385,4 +415,6 @@ void ConsoleUI::CONNECT(){
 
     waitForPrompt();
     clear();
+
+
 }
