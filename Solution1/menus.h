@@ -6,6 +6,7 @@
 std::string INTRO = " Do you want to enter the computers' Database or the scientists' Database? \n\n\
         computer : Enter the computers' Database\n\
         scientist: Enter the scientists' Database\n\
+        connect  : Connect scientist and computer\n\
         exit     : Exit the program.";
 
 
@@ -38,6 +39,7 @@ along with an ascending(asc) or descending(desc) modifier\n\
         type    : Type\n\
         built   : Was the computer built?\n\n\
 Example: \"brand desc\"";
+
 
 
 #endif // MENUS_H

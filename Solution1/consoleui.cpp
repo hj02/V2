@@ -238,6 +238,32 @@ int ConsoleUI::respondToMessage() {
         clear();
       }
     }
+
+
+    if(computerVSscientist.find("connect") != std::string::npos){
+
+    std::string sconnect;
+    std::string cconnect;
+    std::string searchterm;
+
+    std::cout << "Please enter a serch therm for scientist: ";
+
+
+    std::cout << "Enter the ID of Scientist: " << std::endl;
+    std::cin >> sconnect;
+    std::cout << "Enter the ID of Computer: " << std::endl;
+    std::cin >> cconnect;
+
+    scienceService.connect(sconnect, cconnect);
+
+    std::cout <<"Thank you, you have connected scientist with ID " << sconnect << " to computer with ID " << cconnect << std::endl;
+
+    waitForPrompt();
+    clear();
+    }
+
+
+
     if (computerVSscientist.find("exit") != std::string::npos) {
                return 0;
 
