@@ -21,6 +21,16 @@ private:
     void toLower(std::string& str);
     bool dateTrue(std::string date);
     bool yearTrue(std::string year);
+    int SCIENTIST();
+    void ADD_SCIENTIST();
+    void SEARCH_SCIENTIST();
+    void ORDER_SCIENTIST();
+    void ERROR(std::runtime_error);
+    int COMPUTER();
+    void ADD_COMPUTER();
+    void SEARCH_COMPUTER();
+    void ORDER_COMPUTER();
+    void CONNECT();
 };
 
 #endif // CONSOLEUI_H

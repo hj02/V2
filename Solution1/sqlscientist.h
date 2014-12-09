@@ -3,6 +3,7 @@
 #include <scientist.h>
 #include <QtSql>
 #include <stdexcept>
+#include <ctime>
 
 class SqlScientist
 {
