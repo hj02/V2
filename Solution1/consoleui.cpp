@@ -388,7 +388,7 @@ void ConsoleUI::CONNECT(){
     }
     if(option == "y"){
             clear();
-            std::cout << "Dou you want to search for a scientist or a computer (scientist/computer): " << std::endl;
+            std::cout << "Do you want to search for a scientist or a computer (scientist/computer): " << std::endl;
             std::cin >> option2;
             toLower(option2);
             while(option2 != "scientist" && option2 != "computer"){
@@ -400,9 +400,33 @@ void ConsoleUI::CONNECT(){
             if(option2 == "scientist"){
                 std::cout << "Please enter a serch therm for scientist: ";
                 SEARCH_SCIENTIST();
+                std::cout << "Do you also want to search for a computer? (y/n)";
+                std::string YesOrNo;
+                std::cin >> YesOrNo;
+                toLower(YesOrNo);
+                if(YesOrNo!="y" && YesOrNo!="n"){
+                 std::cout << std::endl<< "ERROR! Please enter 'y' or 'n': ";
+                 std::cin >> YesOrNo;
+                 toLower(YesOrNo);
+                }
+                if(YesOrNo=="y"){
+                    SEARCH_COMPUTER();
+                }
             }else if(option2 == "computer"){
                 std::cout << "Please enter a serch therm for computer: ";
                 SEARCH_COMPUTER();
+                std::cout << "Do you also want to search for a scientist? (y/n)";
+                std::string YesOrNo2;
+                std::cin >> YesOrNo2;
+                toLower(YesOrNo2);
+                if(YesOrNo2!="y" && YesOrNo2!="n"){
+                 std::cout << std::endl<< "ERROR! Please enter 'y' or 'n': ";
+                 std::cin >> YesOrNo2;
+                 toLower(YesOrNo2);
+                }
+                if(YesOrNo2=="y"){
+                    SEARCH_SCIENTIST();
+                }
             }
      }
     std::cout << "Enter the ID of Scientist: " << std::endl;
