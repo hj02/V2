@@ -23,7 +23,8 @@ SOURCES += main.cpp \
     scientist.cpp \
     sqlcomputer.cpp \
     sqlscientist.cpp \
-    computer.cpp
+    computer.cpp \
+    mainwindow.cpp
 
 HEADERS += \
     consoleui.h \
@@ -32,4 +33,8 @@ HEADERS += \
     scientist.h \
     sqlcomputer.h \
     sqlscientist.h \
-    computer.h
+    computer.h \
+    mainwindow.h
+
+FORMS += \
+    mainwindow.ui
