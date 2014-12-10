@@ -1,7 +1,6 @@
 #include "computer.h"
 
-Computer::Computer()
-{
+Computer::Computer(){
     cID=0;
     brand = "";
     year = "";

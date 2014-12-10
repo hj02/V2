@@ -24,7 +24,7 @@ std::list<Scientist> ScienceService::searchScientist(std::string searchTerm, std
     return sqlscientist.searchScientist(searchTerm, ShowComp);
 }
 
-void ScienceService::OPEN(){
+void ScienceService::open(){
     sqlscientist.openDatabase();
 }
 

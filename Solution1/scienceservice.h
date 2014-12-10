@@ -24,7 +24,7 @@ public:
     // Orders the list
     void connect(std::string sID, std::string cID);
     // Connentes a computer and a scientist
-    void OPEN();
+    void open();
     // Opens database
 private:
     SqlScientist sqlscientist;

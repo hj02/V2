@@ -15,30 +15,34 @@ public:
 private:
     ScienceService scienceService;
     void clear();
-    void waitForPrompt();
-    // waits until the user presses enter
+    void waitForPrompt(); // waits until the user presses enter
     int respondToMessage();
     void toLower(std::string& str);
-    bool dateTrue(std::string date);
-    // Check if the date is on the right format
-    bool yearTrue(std::string year);
-    // Check if the year is on the right format
+    void firstToUpper(std::string& finding);
+    bool dateTrue(std::string date);// Check if the date is on the right format
+    bool yearTrue(std::string year);// Check if the year is on the right format
+    void search_intro(std::string& searchTerm, std::string& ShowComp);
+    void error(std::runtime_error);
+    void error2(std::string& input, std::string err);
+
     int SCIENTIST();
     void ADD_SCIENTIST();
     void SEARCH_SCIENTIST();
+    void SearchWithID_SCIENTIST();
     void ORDER_SCIENTIST();
-    void ERROR(std::runtime_error);
+    bool EXISTENCE_SCIENTIST(std::string sID);
+
+
     int COMPUTER();
     void ADD_COMPUTER();
     void SEARCH_COMPUTER();
-    void ORDER_COMPUTER();
-    void CONNECT();
-    void firstToUpper(std::string& finding);
-    void ERROR2(std::string& input, std::string err);
-    bool existenceScientist(std::string sID);
-    bool existenceComputer(std::string cID);
-    void search_intro(std::string& searchTerm, std::string& ShowComp);
-    void SearchWithID_SCIENTIST();
     void SearchWithID_COMPUTER();
+    void ORDER_COMPUTER();
+    bool EXISTENCE_COMPUTER(std::string cID);
+
+    void CONNECT();
+
+
+
 };
 #endif // CONSOLEUI_H
