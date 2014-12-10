@@ -37,5 +37,8 @@ private:
     void ERROR2(std::string& input, std::string err);
     bool existenceScientist(std::string sID);
     bool existenceComputer(std::string cID);
+    void search_intro(std::string& searchTerm, std::string& ShowComp);
+    void SearchWithID_SCIENTIST();
+    void SearchWithID_COMPUTER();
 };
 #endif // CONSOLEUI_H

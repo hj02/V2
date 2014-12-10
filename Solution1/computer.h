@@ -7,6 +7,7 @@ class Computer
 public:
     Computer();
     bool operator==(const Computer& right);
+    int cID;
     std::string brand;
     std::string year;
     std::string type;

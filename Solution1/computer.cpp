@@ -2,10 +2,13 @@
 
 Computer::Computer()
 {
+    cID=0;
     brand = "";
     year = "";
     type = "";
     built = "";
+    name = "";
+
 }
 
 bool Computer::operator==(const Computer& right) {

@@ -7,6 +7,7 @@ ConsoleUI::ConsoleUI()
 }
 
 ConsoleUI::~ConsoleUI() {}
+
 int ConsoleUI::start()
 {
     scienceService.OPEN();
@@ -220,19 +221,8 @@ void ConsoleUI::SEARCH_SCIENTIST(){
 
     std::string ShowComp = "";
     std::string searchTerm = "";
-    std::cout << "Enter the search term: ";
-    std::cin.ignore();
-    std::getline(std::cin,searchTerm);
-    clear();
 
-    std::cout << "Do you want to see if the scientist is connected to a computer?(y/n): ";
-    std::cin >> ShowComp;
-    toLower(ShowComp);
-
-    while(ShowComp != "y" && ShowComp != "n"){
-
-        ERROR2(ShowComp, "'y' or 'n'");
-    }
+    search_intro(searchTerm, ShowComp);
 
     std::list<Scientist> s = scienceService.searchScientist(searchTerm, ShowComp);
 
@@ -403,25 +393,14 @@ void ConsoleUI::ADD_COMPUTER(){
     clear();
 }
 
-
 void ConsoleUI::SEARCH_COMPUTER(){
     clear();
 
     std::string searchTerm = "";
     std::string ShowComp = "";
-    std::cout << "Enter the search term: ";
-    std::cin.ignore();
-    std::getline(std::cin,searchTerm);
-    clear();
 
-    std::cout << "Do you want to see if the computer is connected to a scientist?(y/n): ";
-    std::cin >> ShowComp;
-    toLower(ShowComp);
 
-    while(ShowComp != "y" && ShowComp != "n"){
-
-        ERROR2(ShowComp, "'y' or 'n'");
-    }
+    search_intro(searchTerm, ShowComp);
 
     std::list<Computer> co = scienceService.searchComputer(searchTerm, ShowComp);
 
@@ -516,7 +495,7 @@ void ConsoleUI::CONNECT(){
         if(option2 == "scientist"){
 
             std::cout << "Please enter a serch therm for a scientist: ";
-            SEARCH_SCIENTIST();
+            SearchWithID_SCIENTIST();
 
             std::cout << "Do you also want to search for a computer? (y/n): ";
             std::string YesOrNo;
@@ -529,13 +508,13 @@ void ConsoleUI::CONNECT(){
             }
             if(YesOrNo=="y"){
 
-                SEARCH_COMPUTER();
+                SearchWithID_COMPUTER();
             }
         }
         else if(option2 == "computer"){
 
             std::cout << "Please enter a serch therm for a computer: ";
-            SEARCH_COMPUTER();
+            SearchWithID_COMPUTER();
 
             std::cout << "Do you also want to search for a scientist? (y/n): ";
             std::string YesOrNo2;
@@ -548,7 +527,7 @@ void ConsoleUI::CONNECT(){
             }
             if(YesOrNo2=="y"){
 
-               SEARCH_SCIENTIST();
+               SearchWithID_SCIENTIST();
 
             }
         }
@@ -627,7 +606,6 @@ bool ConsoleUI::existenceScientist(std::string sID){
 
 }
 
-
 bool ConsoleUI::existenceComputer(std::string cID){
 
     QSqlQuery query;
@@ -642,4 +620,112 @@ bool ConsoleUI::existenceComputer(std::string cID){
 
     return value;
 
+}
+
+void ConsoleUI::search_intro(std::string& searchTerm, std::string& ShowComp){
+
+    std::cout << "Enter the search term: ";
+    std::cin.ignore();
+    std::getline(std::cin,searchTerm);
+    clear();
+
+    std::cout << "Do you want to see if the computer is connected to a scientist?(y/n): ";
+    std::cin >> ShowComp;
+    toLower(ShowComp);
+
+    while(ShowComp != "y" && ShowComp != "n"){
+
+        ERROR2(ShowComp, "'y' or 'n'");
+    }
+
+}
+
+void ConsoleUI::SearchWithID_SCIENTIST(){
+    clear();
+
+    std::string ShowComp = "";
+    std::string searchTerm = "";
+
+    search_intro(searchTerm, ShowComp);
+
+    std::list<Scientist> s = scienceService.searchScientist(searchTerm, ShowComp);
+
+    if(s.size() > 0) {
+        std::cout << "Scientist found!!" << std::endl;
+        if(ShowComp == "n"){
+
+            std::cout << std::left << std::setw(4) << "ID: "<< std::left << std::setw(25) << "Name:" << std::left << std::setw(15) <<"DateOfBirth:" ;
+            std:: cout << std::left << std::setw(15) << "DateOfDeath:" << std::left << std::setw(15)<< "Gender:"<< std::endl << std::endl;
+
+            for(std::list<Scientist>::iterator iter = s.begin(); iter != s.end(); iter ++){
+                std::cout << std::left << std::setw(4) << iter->sID << std::left << std::setw(25) << iter->name << std::left << std::setw(15) << iter->dateOfBirth;
+                std::cout << std::left << std::setw(15)<< iter->dateOfDeath << std::left << std::setw(15) << iter->gender << std::endl;
+            }
+        }
+        else {
+
+            std::cout << std::left << std::setw(4) << "ID: " << std::left << std::setw(24) << "Name:" << std::left << std::setw(14) <<"DateOfBirth:" ;
+            std::cout << std::left << std::setw(30) << "Brand:" << std::endl << std::endl;
+
+            for(std::list<Scientist>::iterator iter = s.begin(); iter != s.end(); iter ++){
+
+                std::cout << std::left << std::setw(4) << iter->sID << std::left << std::setw(24) << iter->name << std::left << std::setw(14)<< iter->dateOfBirth ;
+                std::cout << std::left << std::setw(20) << iter->brand << std::endl;
+               }
+        }
+   }
+   else{
+
+        std::cout << "No results found for the term " << searchTerm << std::endl;
+
+    }
+    waitForPrompt();
+    clear();
+}
+
+void ConsoleUI::SearchWithID_COMPUTER(){
+    clear();
+
+    std::string ShowComp = "";
+    std::string searchTerm = "";
+
+    search_intro(searchTerm, ShowComp);
+
+    std::list<Computer> co = scienceService.searchComputer(searchTerm, ShowComp);
+
+    if(co.size() > 0) {
+
+        std::cout << "Computer found!!" << std::endl;
+
+        if(ShowComp == "n")
+        {
+            std::cout << std::left << std::setw(4) << "ID: " << std::left << std::setw(25) << "Brand:" << std::left << std::setw(8) <<"Year:" << std::left << std::setw(30) << "Type:" ;
+            std::cout << std::left << std::setw(8) <<"Built?:" << std::endl << std::endl;
+
+            for(std::list<Computer>::iterator iter = co.begin(); iter != co.end(); iter ++)
+            {
+                std::cout << std::left << std::setw(4) << iter->cID << std::left << std::setw(25) << iter->brand << std::left << std::setw(8) << iter->year ;
+                std::cout << std::left << std::setw(30)<< iter->type << std::left << std::setw(8)<< iter->built << std::endl;
+            }
+        }
+
+        else
+        {
+            std::cout << std::left << std::setw(4) << "ID: "  << std::left << std::setw(15) << "Brand:" << std::left << std::setw(6) <<"Year:";
+            std::cout << std::left << std::setw(8) <<"Built?" << std::left << std::setw(20) << "Name:" << std::endl << std::endl;
+
+            for(std::list<Computer>::iterator iter = co.begin(); iter != co.end(); iter ++)
+            {
+                std::cout << std::left << std::setw(4) << iter->cID << std::left << std::setw(15) << iter->brand << std::left << std::setw(6) << iter->year;
+                std::cout << std::left << std::setw(8)<< iter->built << std::left << std::setw(20) << iter->name << std::endl;
+            }
+        }
+    }
+    else {
+
+        std::cout << "No results found for the term: " << searchTerm << std::endl;
+      }
+
+    waitForPrompt();
+    clear();
 }
