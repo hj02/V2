@@ -34,5 +34,8 @@ private:
     void ORDER_COMPUTER();
     void CONNECT();
     void firstToUpper(std::string& finding);
+    void ERROR2(std::string& input, std::string err);
+    bool existenceScientist(std::string sID);
+    bool existenceComputer(std::string cID);
 };
 #endif // CONSOLEUI_H

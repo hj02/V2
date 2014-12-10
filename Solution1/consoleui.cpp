@@ -225,13 +225,20 @@ void ConsoleUI::SEARCH_SCIENTIST(){
     std::getline(std::cin,searchTerm);
     clear();
 
-    std::cout << "Do you want to see if the scientist is connected a computer?(y/n): ";
+    std::cout << "Do you want to see if the scientist is connected to a computer?(y/n): ";
     std::cin >> ShowComp;
+    toLower(ShowComp);
+
+    while(ShowComp != "y" && ShowComp != "n"){
+
+        ERROR2(ShowComp, "'y' or 'n'");
+    }
+
     std::list<Scientist> s = scienceService.searchScientist(searchTerm, ShowComp);
 
     if(s.size() > 0) {
         std::cout << "Scientist found!!" << std::endl;
-        if(ShowComp == "N" || ShowComp == "n"){
+        if(ShowComp == "n"){
 
             std::cout << std::left << std::setw(30) << "Name:" << std::left << std::setw(15) <<"DateOfBirth:" ;
             std:: cout << std::left << std::setw(15) << "DateOfDeath:" << std::left << std::setw(15)<< "Gender:"<< std::endl << std::endl;
@@ -258,7 +265,6 @@ void ConsoleUI::SEARCH_SCIENTIST(){
         std::cout << "No results found for the term " << searchTerm << std::endl;
 
     }
-
     waitForPrompt();
     clear();
 }
@@ -273,6 +279,7 @@ void ConsoleUI::ORDER_SCIENTIST(){
 
     toLower(filterCol);
     toLower(filterMod);
+
     clear();
 
     std::list<Scientist> l = scienceService.getScientistsOrderedBy(filterCol,filterMod);
@@ -346,17 +353,18 @@ int ConsoleUI::COMPUTER(){
 void ConsoleUI::ADD_COMPUTER(){
 
     clear();
-    std::string BRAND, YEAR, TYPE, BUILT;
     Computer additionalComputer = Computer();
 
     std::cout << "Enter the name of the computer: ";
+    std::string BRAND = "";
     std::cin.ignore();
     std::getline(std::cin, BRAND);
     toLower(BRAND);
     firstToUpper(BRAND);
-
     additionalComputer.brand = BRAND;
+
     std::cout << "Enter the year of the computer: ";
+    std::string YEAR = "";
     std::cin >> YEAR;
 
     while(!yearTrue(YEAR)){
@@ -370,14 +378,15 @@ void ConsoleUI::ADD_COMPUTER(){
     additionalComputer.year = YEAR;
 
     std::cout << "Enter the type of the computer: ";
+    std::string TYPE = "";
     std::cin.ignore();
     std::getline(std::cin, TYPE);
-
     toLower(TYPE);
     firstToUpper(TYPE);
     additionalComputer.type = TYPE;
 
     std::cout << "Was the computer built?(yes/no): ";
+    std::string BUILT = "";
     std::cin >> BUILT;
     toLower(BUILT);
 
@@ -389,9 +398,11 @@ void ConsoleUI::ADD_COMPUTER(){
     }
 
     additionalComputer.built=BUILT;
+
     scienceService.addComputer(additionalComputer);
     clear();
 }
+
 
 void ConsoleUI::SEARCH_COMPUTER(){
     clear();
@@ -401,18 +412,24 @@ void ConsoleUI::SEARCH_COMPUTER(){
     std::cout << "Enter the search term: ";
     std::cin.ignore();
     std::getline(std::cin,searchTerm);
-
     clear();
 
     std::cout << "Do you want to see if the computer is connected to a scientist?(y/n): ";
     std::cin >> ShowComp;
+    toLower(ShowComp);
+
+    while(ShowComp != "y" && ShowComp != "n"){
+
+        ERROR2(ShowComp, "'y' or 'n'");
+    }
+
     std::list<Computer> co = scienceService.searchComputer(searchTerm, ShowComp);
 
     if(co.size() > 0) {
 
         std::cout << "Computer found!!" << std::endl;
 
-        if(ShowComp == "N" || ShowComp == "n")
+        if(ShowComp == "n")
         {
             std::cout << std::left << std::setw(30) << "Brand:" << std::left << std::setw(8) <<"Year:" << std::left << std::setw(30) << "Type:" ;
             std::cout << std::left << std::setw(8) <<"Built?:" << std::endl << std::endl;
@@ -473,24 +490,14 @@ void ConsoleUI::ORDER_COMPUTER(){
 
 void ConsoleUI::CONNECT(){
 
-    QSqlQuery query;
-
-    std::string sconnect;
-    std::string cconnect;
-    std::string searchterm;
-    std::string option;
-    std::string option2;
-
     std::cout << "Do you want to search first for a scientist or a computer (y/n): ";
+    std::string option;
     std::cin >> option;
     toLower(option);
 
     while(option != "y" && option != "n"){
 
-        std::cout << "ERROR Not a valid command" << std::endl;
-        std::cout << "Please try again: " << std::endl;
-        std::cin >> option;
-        toLower(option);
+        ERROR2(option, "'y' or 'n'");
     }
 
     if(option == "y"){
@@ -498,33 +505,28 @@ void ConsoleUI::CONNECT(){
         clear();
 
         std::cout << "Do you want to search for a scientist or a computer (scientist/computer): " << std::endl;
+        std::string option2;
         std::cin >> option2;
         toLower(option2);
 
         while(option2 != "scientist" && option2 != "computer"){
 
-            std::cout << "ERROR Not a valid command" << std::endl;
-            std::cout << "Please try again: " << std::endl;
-            std::cin >> option2;
-            toLower(option2);
+            ERROR2(option2, "'scientist' or 'computer'");
           }
         if(option2 == "scientist"){
 
-            std::cout << "Please enter a serch therm for scientist: ";
+            std::cout << "Please enter a serch therm for a scientist: ";
             SEARCH_SCIENTIST();
 
-            std::cout << "Do you also want to search for a computer? (y/n)";
+            std::cout << "Do you also want to search for a computer? (y/n): ";
             std::string YesOrNo;
             std::cin >> YesOrNo;
             toLower(YesOrNo);
 
             if(YesOrNo!="y" && YesOrNo!="n"){
 
-                std::cout << std::endl<< "ERROR! Please enter 'y' or 'n': ";
-                std::cin >> YesOrNo;
-                toLower(YesOrNo);
-              }
-
+               ERROR2(YesOrNo, "'y' or 'n'");
+            }
             if(YesOrNo=="y"){
 
                 SEARCH_COMPUTER();
@@ -532,77 +534,45 @@ void ConsoleUI::CONNECT(){
         }
         else if(option2 == "computer"){
 
-            std::cout << "Please enter a serch therm for computer: ";
+            std::cout << "Please enter a serch therm for a computer: ";
             SEARCH_COMPUTER();
 
-            std::cout << "Do you also want to search for a scientist? (y/n)";
+            std::cout << "Do you also want to search for a scientist? (y/n): ";
             std::string YesOrNo2;
             std::cin >> YesOrNo2;
             toLower(YesOrNo2);
 
             if(YesOrNo2!="y" && YesOrNo2!="n"){
 
-                std::cout << std::endl<< "ERROR! Please enter 'y' or 'n': ";
-                std::cin >> YesOrNo2;
-                toLower(YesOrNo2);
+               ERROR2(YesOrNo2, "'y' or 'n'");
             }
             if(YesOrNo2=="y"){
 
-                SEARCH_SCIENTIST();
+               SEARCH_SCIENTIST();
 
             }
         }
     }
 
     std::cout << "Enter the ID of Scientist: " << std::endl;
+    std::string sconnect;
     std::cin >> sconnect;
 
-    query.prepare("SELECT :id in (SELECT ID FROM Scientist) AS RES");
-    query.bindValue(":id", QString::fromStdString(sconnect));
-    query.exec();
-    query.next();
-
-    std::string res = query.value("RES").toString().toStdString();
-    int value = atoi(res.c_str());
-
-    while(!value){
-        std::cout << "This is scientist does not exist!" << std::endl;
+    while(existenceScientist(sconnect)){
+        std::cout << "This scientist does not exist!" << std::endl;
         std::cout << "Enter the ID of Scientist: " << std::endl;
         std::cin >> sconnect;
-
-        query.prepare("SELECT :id in (SELECT ID FROM Scientist)AS RES");
-        query.bindValue(":id", QString::fromStdString(sconnect));
-        query.exec();
-        query.next();
-
-        res = query.value("RES").toString().toStdString();
-        value = atoi(res.c_str());
     }
 
     std::cout << "Enter the ID of Computer: " << std::endl;
+    std::string cconnect;
     std::cin >> cconnect;
 
-    query.prepare("SELECT :id2 in (SELECT ID FROM Computer) AS RES2");
-    query.bindValue(":id2", QString::fromStdString(cconnect));
-    query.exec();
-    query.next();
+    while(existenceScientist(cconnect)){
 
-    std::string res2 = query.value("RES2").toString().toStdString();
-    int value2 = atoi(res2.c_str());
-
-    while(!value2){
-
-        std::cout << "This is computer does not exist!"<< std::endl;
+        std::cout << "This computer does not exist!"<< std::endl;
         std::cout << "Enter the ID of Computer: " << std::endl;
         std::cin >> cconnect;
-
-        query.prepare("SELECT :id2 in (SELECT ID FROM Computer) AS RES2");
-        query.bindValue(":id2", QString::fromStdString(cconnect));
-        query.exec();
-        query.next();
-
-        res2 = query.value("RES2").toString().toStdString();
-        value2 = atoi(res2.c_str());
     }
 
     scienceService.connect(sconnect, cconnect);
@@ -630,4 +600,46 @@ void ConsoleUI::firstToUpper(std::string& finding){
             teljari = -1;
         }
     }
+}
+
+void ConsoleUI::ERROR2(std::string& input, std::string err){
+
+    std::cout << std::endl<< "ERROR! Please enter " << err << ": ";
+    std::cin >> input;
+    toLower(input);
+
+
+}
+
+bool ConsoleUI::existenceScientist(std::string sID){
+
+    QSqlQuery query;
+
+    query.prepare("SELECT :id2 in (SELECT ID FROM Computer) AS RES2");
+    query.bindValue(":id2", QString::fromStdString(sID));
+    query.exec();
+    query.next();
+
+    std::string res2 = query.value("RES2").toString().toStdString();
+    int value = atoi(res2.c_str());
+
+    return value;
+
+}
+
+
+bool ConsoleUI::existenceComputer(std::string cID){
+
+    QSqlQuery query;
+
+    query.prepare("SELECT :id in (SELECT ID FROM Scientist) AS RES");
+    query.bindValue(":id", QString::fromStdString(cID));
+    query.exec();
+    query.next();
+
+    std::string res = query.value("RES").toString().toStdString();
+    int value = atoi(res.c_str());
+
+    return value;
+
 }

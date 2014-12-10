@@ -33,7 +33,7 @@ void SqlComputer::addComputer(Computer c){
 std::list<Computer> SqlComputer::searchComputer(std::string searchTerm, std::string ShowComp){
     QSqlQuery query;
     searchTerm = "%" + searchTerm + "%";
-    if(ShowComp == "N" || ShowComp == "n")
+    if(ShowComp == "n")
     {
         std::list<Computer> computer = std::list<Computer>();
         query.prepare("select * from Computer where Brand like :estr or Year like :estr or Type like :estr or Built like :estr");

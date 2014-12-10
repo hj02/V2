@@ -33,7 +33,7 @@ void SqlScientist::addScientist(Scientist s){
 std::list<Scientist> SqlScientist::searchScientist(std::string searchTerm, std::string ShowComp){
     QSqlQuery query;
     searchTerm = "%" + searchTerm + "%";
-   if(ShowComp == "N" || ShowComp == "n"){
+   if(ShowComp == "n"){
         std::list<Scientist> scientist = std::list<Scientist>();
         query.prepare("select * from Scientist where Name like :estr or Gender like :estr or Dob like :estr or Dod like :estr");
         query.bindValue(":estr", QString::fromStdString(searchTerm));
@@ -48,7 +48,7 @@ std::list<Scientist> SqlScientist::searchScientist(std::string searchTerm, std::
             }
         return scientist;
     }
-    else
+   else
    {
         std::list<Scientist> scientistandcomputer = std::list<Scientist>();
         query.prepare("select * from ScientistAndComputer where Name like :estr or Gender like :estr or Dob like :estr or Dod like :estr");
