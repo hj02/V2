@@ -270,6 +270,18 @@ void ConsoleUI::ORDER_SCIENTIST(){
     toLower(filterCol);
     toLower(filterMod);
 
+    while((filterCol != "name" && filterCol != "dob" && filterCol != "dod") || (filterCol != "gender" && filterMod != "desc" && filterMod != "asc" )){
+
+
+         std::cout << std::endl<< "ERROR! Please enter 'name', 'gender', 'dob' or 'dod' for column, and 'asc' or 'desc' for modifier: ";
+         std::cin >> filterCol >> filterMod;
+
+         toLower(filterCol);
+         toLower(filterMod);
+
+
+    }
+
     clear();
 
     std::list<Scientist> l = scienceService.getScientistsOrderedBy(filterCol,filterMod);
@@ -451,6 +463,20 @@ void ConsoleUI::ORDER_COMPUTER(){
     toLower(filterCol);
     toLower(filterMod);
 
+    while((filterCol != "brand" && filterCol != "year" && filterCol != "type") || (filterCol != "built" && filterMod != "desc" && filterMod != "asc" )){
+
+
+         std::cout << std::endl<< "ERROR! Please enter 'brand', 'year', 'type' or 'built' for column, and 'asc' or 'desc' for modifier: ";
+         std::cin >> filterCol >> filterMod;
+
+         toLower(filterCol);
+         toLower(filterMod);
+
+
+    }
+
+
+
     clear();
 
     std::list<Computer> l = scienceService.getComputersOrderedBy(filterCol,filterMod);
@@ -537,7 +563,7 @@ void ConsoleUI::CONNECT(){
     std::string sconnect;
     std::cin >> sconnect;
 
-    while(existenceScientist(sconnect)){
+    while(!existenceScientist(sconnect)){
         std::cout << "This scientist does not exist!" << std::endl;
         std::cout << "Enter the ID of Scientist: " << std::endl;
         std::cin >> sconnect;
@@ -547,7 +573,7 @@ void ConsoleUI::CONNECT(){
     std::string cconnect;
     std::cin >> cconnect;
 
-    while(existenceScientist(cconnect)){
+    while(!existenceComputer(cconnect)){
 
         std::cout << "This computer does not exist!"<< std::endl;
         std::cout << "Enter the ID of Computer: " << std::endl;
@@ -594,7 +620,7 @@ bool ConsoleUI::existenceScientist(std::string sID){
 
     QSqlQuery query;
 
-    query.prepare("SELECT :id2 in (SELECT ID FROM Computer) AS RES2");
+    query.prepare("SELECT :id2 in (SELECT ID FROM Scientist) AS RES2");
     query.bindValue(":id2", QString::fromStdString(sID));
     query.exec();
     query.next();
@@ -610,7 +636,7 @@ bool ConsoleUI::existenceComputer(std::string cID){
 
     QSqlQuery query;
 
-    query.prepare("SELECT :id in (SELECT ID FROM Scientist) AS RES");
+    query.prepare("SELECT :id in (SELECT ID FROM Computer) AS RES");
     query.bindValue(":id", QString::fromStdString(cID));
     query.exec();
     query.next();

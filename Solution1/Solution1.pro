@@ -21,7 +21,6 @@ SOURCES += main.cpp \
     consoleui.cpp \
     scienceservice.cpp \
     scientist.cpp \
-    utilities.cpp \
     sqlcomputer.cpp \
     sqlscientist.cpp \
     computer.cpp
@@ -31,7 +30,6 @@ HEADERS += \
     menus.h \
     scienceservice.h \
     scientist.h \
-    utilities.h \
     sqlcomputer.h \
     sqlscientist.h \
     computer.h
