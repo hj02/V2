@@ -58,6 +58,7 @@ std::list<Computer> SqlComputer::searchComputer(std::string searchTerm, std::str
         query.exec();
         Computer t = Computer();
         while(query.next()){
+            t.cID = query.value("ID").toInt();
             t.brand = query.value("Brand").toString().toStdString();
             t.year = query.value("Year").toString().toStdString();
             t.type =query.value("Type").toString().toStdString();

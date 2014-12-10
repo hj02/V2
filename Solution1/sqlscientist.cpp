@@ -57,6 +57,7 @@ std::list<Scientist> SqlScientist::searchScientist(std::string searchTerm, std::
         query.exec();
         Scientist s = Scientist();
         while(query.next()){
+            s.sID = query.value("ID").toInt();
             s.name = query.value("Name").toString().toStdString();
             s.gender = query.value("Gender").toString().toStdString();
             s.dateOfBirth =query.value("Dob").toString().toStdString();

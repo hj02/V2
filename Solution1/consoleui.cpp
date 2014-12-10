@@ -655,7 +655,7 @@ void ConsoleUI::SearchWithID_SCIENTIST(){
         if(ShowComp == "n"){
 
             std::cout << std::left << std::setw(4) << "ID: "<< std::left << std::setw(25) << "Name:" << std::left << std::setw(15) <<"DateOfBirth:" ;
-            std:: cout << std::left << std::setw(15) << "DateOfDeath:" << std::left << std::setw(15)<< "Gender:"<< std::endl << std::endl;
+            std::cout << std::left << std::setw(15) << "DateOfDeath:" << std::left << std::setw(15)<< "Gender:"<< std::endl << std::endl;
 
             for(std::list<Scientist>::iterator iter = s.begin(); iter != s.end(); iter ++){
                 std::cout << std::left << std::setw(4) << iter->sID << std::left << std::setw(25) << iter->name << std::left << std::setw(15) << iter->dateOfBirth;
